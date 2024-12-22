@@ -55,7 +55,7 @@
     <div id="timer">00:00</div>
     <div class="input-group">
         <button onclick="decrement('countdownTime')" id="countdownDecrement">-</button>
-        <input type="number" id="countdownTime" placeholder="時間（分）" min="1" onchange="validatePreBellTime()" readonly>
+        <input type="number" id="countdownTime" placeholder="時間（分）" min="1" readonly>
         <button onclick="increment('countdownTime')" id="countdownIncrement">+</button>
     </div>
     <div class="input-group">
@@ -87,6 +87,9 @@
         function increment(id) {
             let input = document.getElementById(id);
             let value = parseInt(input.value) || 0;
+            if (id === 'preBellTime' && value >= countdownTime) {
+                return; // 予鈴がカウントダウンタイマーの時間を超えないようにする
+            }
             input.value = value + 1;
             if (id === 'countdownTime') {
                 validatePreBellTime();
