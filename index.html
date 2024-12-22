@@ -132,6 +132,7 @@
                     }
                 } else if (time === 0) {
                     document.getElementById('finalBell').play();
+                    clearInterval(timer); // タイマーを停止して、-1:-1になるのを防ぐ
                 }
             }, 1000);
         }
