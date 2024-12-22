@@ -123,15 +123,16 @@
             isRunning = true;
 
             timer = setInterval(() => {
-                time--;
-                updateTimer();
+                if (time > 0) {
+                    time--;
+                    updateTimer();
 
-                if (time === preBellTime) {
-                    document.getElementById('preBell').play();
-                }
-
-                if (time <= 0) {
+                    if (time === preBellTime) {
+                        document.getElementById('preBell').play();
+                    }
+                } else {
                     document.getElementById('finalBell').play();
+                    clearInterval(timer); // タイマーを停止して、-1:-1になるのを防ぐ
                 }
             }, 1000);
         }
