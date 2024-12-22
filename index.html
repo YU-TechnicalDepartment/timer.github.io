@@ -55,7 +55,7 @@
     <div id="timer">00:00</div>
     <div class="input-group">
         <button onclick="decrement('countdownTime')" id="countdownDecrement">-</button>
-        <input type="number" id="countdownTime" placeholder="時間（分）" min="1" readonly>
+        <input type="number" id="countdownTime" placeholder="時間（分）" min="1" onchange="validatePreBellTime()" readonly>
         <button onclick="increment('countdownTime')" id="countdownIncrement">+</button>
     </div>
     <div class="input-group">
@@ -88,12 +88,29 @@
             let input = document.getElementById(id);
             let value = parseInt(input.value) || 0;
             input.value = value + 1;
+            if (id === 'countdownTime') {
+                validatePreBellTime();
+            }
         }
 
         function decrement(id) {
             let input = document.getElementById(id);
             let value = parseInt(input.value) || 0;
-            if (value > 1) input.value = value - 1;
+            if (value > 1) {
+                input.value = value - 1;
+                if (id === 'countdownTime') {
+                    validatePreBellTime();
+                }
+            }
+        }
+
+        function validatePreBellTime() {
+            let countdownTimeValue = parseInt(document.getElementById('countdownTime').value) || 0;
+            let preBellTimeInput = document.getElementById('preBellTime');
+            let preBellTimeValue = parseInt(preBellTimeInput.value) || 0;
+            if (preBellTimeValue >= countdownTimeValue) {
+                preBellTimeInput.value = countdownTimeValue - 1;
+            }
         }
 
         function toggleTimer() {
