@@ -75,6 +75,7 @@
         let countdownTime = 0;
         let preBellTime = 0;
         let isRunning = false;
+        let preBellPlayed = false;  // 予鈴が既に再生されたかどうかを追跡
 
         function updateTimer() {
             let minutes = Math.floor(time / 60);
@@ -112,6 +113,7 @@
             }
 
             time = countdownTime;
+            preBellPlayed = false;  // 予鈴再生フラグをリセット
             document.getElementById('startStopButton').textContent = "停止";
             document.getElementById('startStopButton').classList.add('stop');
             document.getElementById('countdownTime').disabled = true;
@@ -127,8 +129,9 @@
                     time--;
                     updateTimer();
 
-                    if (time === preBellTime) {
+                    if (time === preBellTime && !preBellPlayed) {
                         document.getElementById('preBell').play();
+                        preBellPlayed = true;  // 予鈴再生フラグを設定
                     }
                 } else if (time === 0) {
                     document.getElementById('finalBell').play();
