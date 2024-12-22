@@ -75,7 +75,7 @@
         let countdownTime = 0;
         let preBellTime = 0;
         let isRunning = false;
-        let preBellPlayed = false;  // 予鈴が既に再生されたかどうかを追跡
+        let preBellPlayed = false;
 
         function updateTimer() {
             let minutes = Math.floor(time / 60);
@@ -113,7 +113,7 @@
             }
 
             time = countdownTime;
-            preBellPlayed = false;  // 予鈴再生フラグをリセット
+            preBellPlayed = false;
             document.getElementById('startStopButton').textContent = "停止";
             document.getElementById('startStopButton').classList.add('stop');
             document.getElementById('countdownTime').disabled = true;
@@ -124,6 +124,12 @@
             document.getElementById('preBellIncrement').disabled = true;
             isRunning = true;
 
+            // iOSデバイスで音が鳴るように、タイマー開始時に音声を再生
+            document.getElementById('preBell').play();
+            document.getElementById('preBell').pause();
+            document.getElementById('finalBell').play();
+            document.getElementById('finalBell').pause();
+
             timer = setInterval(() => {
                 if (time > 0) {
                     time--;
@@ -131,11 +137,11 @@
 
                     if (time === preBellTime && !preBellPlayed) {
                         document.getElementById('preBell').play();
-                        preBellPlayed = true;  // 予鈴再生フラグを設定
+                        preBellPlayed = true;
                     }
                 } else if (time === 0) {
                     document.getElementById('finalBell').play();
-                    clearInterval(timer); // タイマーを停止して、-1:-1になるのを防ぐ
+                    clearInterval(timer);
                 }
             }, 1000);
         }
