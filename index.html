@@ -107,7 +107,7 @@
             preBellTime = parseInt(document.getElementById('preBellTime').value, 10) * 60;
             countdownTime = parseInt(document.getElementById('countdownTime').value, 10) * 60;
             if (isNaN(preBellTime) || isNaN(countdownTime) || preBellTime <= 0 || countdownTime <= 0) {
-                alert("有効な予鈴時間と時間（分）を入力してください。");
+                alert("時間・予鈴を入力してください。");
                 return;
             }
 
