@@ -87,8 +87,11 @@
         function increment(id) {
             let input = document.getElementById(id);
             let value = parseInt(input.value) || 0;
-            if (id === 'preBellTime' && value >= countdownTime) {
-                return; // 予鈴がカウントダウンタイマーの時間を超えないようにする
+            if (id === 'preBellTime') {
+                let countdownTimeValue = parseInt(document.getElementById('countdownTime').value) || 0;
+                if (value >= countdownTimeValue) {
+                    return; // 予鈴がカウントダウンタイマーの時間を超えないようにする
+                }
             }
             input.value = value + 1;
             if (id === 'countdownTime') {
